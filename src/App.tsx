@@ -6,6 +6,7 @@ import { Navigation } from './components/Layout/Navigation';
 import { LoginForm } from './components/Auth/LoginForm';
 import { SignUpForm } from './components/Auth/SignUpForm';
 import { RecipeList } from './components/Recipes/RecipeList';
+import { RecipeDetail } from './components/Recipes/RecipeDetail';
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
               <Route path="/login" element={<LoginForm />} />
               <Route path="/signup" element={<SignUpForm />} />
               <Route path="/recipes" element={<RecipeList />} />
+              <Route path="/recipes/:id" element={<RecipeDetail />} />
             </Routes>
           </main>
         </div>

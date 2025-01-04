@@ -12,6 +12,18 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const signUp = async (email: string, password: string, username: string) => {
   const response = await api.post('/signup', {
     user: { email, password, username },
@@ -32,6 +44,13 @@ export const logout = async () => {
 };
 
 export const getRecipes = async (page = 1, perPage = 10) => {
-  const response = await api.get(`/api/v1/recipes?page=${page}&per_page=${perPage}`);
-  return response.data;
+  return (await api.get(`/api/v1/recipes?page=${page}&per_page=${perPage}`)).data;
+};
+
+export const getRecipe = async (id: string) => {
+  return (await api.get(`/api/v1/recipes/${id}`)).data;
+};
+
+export const matchRecipes = async (ingredients: string) => {
+  return (await api.get(`/api/v1/recipes/matcher?ingredients=${encodeURIComponent(ingredients)}`)).data;
 };

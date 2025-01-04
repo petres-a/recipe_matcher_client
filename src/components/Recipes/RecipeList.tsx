@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { RootState } from '../../store';
 import { getRecipes } from '../../services/api';
 import { setRecipes, setLoading, setError, setPagination } from '../../store/recipeSlice';
+import { RecipeSearch } from './RecipeSearch';
 
 export const RecipeList: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -46,19 +47,22 @@ export const RecipeList: React.FC = () => {
   return (
     <div>
       <div className="recipe-grid">
+        <RecipeSearch />
         {recipes.map((recipe) => (
-          <div key={recipe.id} className="recipe-card">
-            <h3>{recipe.title}</h3>
-            <div className="recipe-info">
-              <p>Prep Time: {recipe.prep_time} mins</p>
-              <p>Cook Time: {recipe.cook_time} mins</p>
-              <p>Rating: {recipe.ratings}</p>
+          <Link to={`/recipes/${recipe.id}`} key={recipe.id} className="recipe-card">
+            <div key={recipe.id} className="recipe-card">
+              <h3>{recipe.title}</h3>
+              <div className="recipe-info">
+                <p>Prep Time: {recipe.prep_time} mins</p>
+                <p>Cook Time: {recipe.cook_time} mins</p>
+                <p>Rating: {recipe.ratings}</p>
+              </div>
+              <div className="recipe-meta">
+                <span>{recipe.category}</span>
+                <span>By {recipe.author}</span>
+              </div>
             </div>
-            <div className="recipe-meta">
-              <span>{recipe.category}</span>
-              <span>By {recipe.author}</span>
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
       {pagination && (
