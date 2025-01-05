@@ -1,4 +1,11 @@
 import axios from 'axios';
+import { NavigateFunction } from 'react-router-dom';
+
+let navigate: NavigateFunction;
+
+export const setNavigate = (nav: NavigateFunction) => {
+  navigate = nav;
+};
 
 const api = axios.create({
   baseURL: 'http://localhost:3000',
@@ -6,6 +13,7 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
+
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -15,10 +23,10 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 && !error.config.url?.includes('/login')) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      if (navigate) navigate('/login');
     }
     return Promise.reject(error);
   }
@@ -52,5 +60,5 @@ export const getRecipe = async (id: string) => {
 };
 
 export const matchRecipes = async (ingredients: string) => {
-  return (await api.get(`/api/v1/recipes/matcher?ingredients=${encodeURIComponent(ingredients)}`)).data;
+  return (await api.post('/api/v1/recipes/matcher', { ingredients })).data;
 };

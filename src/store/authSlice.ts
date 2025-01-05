@@ -12,7 +12,7 @@ const initialState: AuthState = {
   user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null,
   token: localStorage.getItem('token'),
   loading: false,
-  error: null,
+  error: null
 };
 
 const authSlice = createSlice({

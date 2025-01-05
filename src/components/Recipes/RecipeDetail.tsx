@@ -1,31 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentRecipe, setLoading } from '../../store/recipeSlice';  // Import actions from recipeSlice
+import { RootState } from '../../store';  // Adjust according to your store setup
 import { getRecipe } from '../../services/api';
 import { RecipeSearch } from './RecipeSearch';
-import { Recipe } from '../../types';
 
 export const RecipeDetail: React.FC = () => {
-  const { id } = useParams<{id: string}>();
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { id } = useParams<{ id: string }>();
+  const dispatch = useDispatch();
+  const recipe = useSelector((state: RootState) => state.recipes.currentRecipe);  // Get currentRecipe from Redux store
+  const loading = useSelector((state: RootState) => state.recipes.loading);  // Get loading state from Redux store
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
+        dispatch(setLoading(true));  // Dispatch loading state to true
         const data = await getRecipe(id!);
-        setRecipe(data);
+        dispatch(setCurrentRecipe(data.recipe));  // Dispatch the fetched recipe to Redux
       } catch (error) {
         console.error('Failed to fetch recipe:', error);
       } finally {
-        setLoading(false);
+        dispatch(setLoading(false));  // Dispatch loading state to false once done
       }
     };
 
     fetchRecipe();
-  }, [id]);
+  }, [id, dispatch]);
 
   if (loading) return <div>Loading...</div>;
   if (!recipe) return <div>Recipe not found</div>;
+
+  const ingredients = recipe.ingredients || [];
 
   return (
     <div>
@@ -41,7 +47,7 @@ export const RecipeDetail: React.FC = () => {
         <div className="ingredients mb-4">
           <h2 className="text-xl font-bold mb-2">Ingredients</h2>
           <ul>
-            {recipe.ingredients.map((ingredient, index) => (
+            {ingredients.map((ingredient, index) => (
               <li key={index}>
                 {ingredient.quantity} {ingredient.unit} {ingredient.name}
               </li>
