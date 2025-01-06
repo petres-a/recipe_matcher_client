@@ -32,6 +32,7 @@ export interface Recipe {
   author: string;
   ingredients: Ingredient[];
   instructions: string | null;
+  image_url: string | null;
   created_at: string;
   updated_at: string;
 }

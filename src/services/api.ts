@@ -33,7 +33,6 @@ api.interceptors.response.use(
 );
 
 export const signUp = async (email: string, password: string, username: string) => {
-  console.log('api url', process.env.REACT_APP_API_URL)
   const response = await api.post('/signup', {
     user: { email, password, username },
   });

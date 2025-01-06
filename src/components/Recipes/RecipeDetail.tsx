@@ -1,27 +1,27 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentRecipe, setLoading } from '../../store/recipeSlice';  // Import actions from recipeSlice
-import { RootState } from '../../store';  // Adjust according to your store setup
+import { setCurrentRecipe, setLoading } from '../../store/recipeSlice';
+import { RootState } from '../../store';
 import { getRecipe } from '../../services/api';
 import { RecipeSearch } from './RecipeSearch';
 
 export const RecipeDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
-  const recipe = useSelector((state: RootState) => state.recipes.currentRecipe);  // Get currentRecipe from Redux store
-  const loading = useSelector((state: RootState) => state.recipes.loading);  // Get loading state from Redux store
+  const recipe = useSelector((state: RootState) => state.recipes.currentRecipe);
+  const loading = useSelector((state: RootState) => state.recipes.loading);
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        dispatch(setLoading(true));  // Dispatch loading state to true
+        dispatch(setLoading(true));
         const data = await getRecipe(id!);
-        dispatch(setCurrentRecipe(data.recipe));  // Dispatch the fetched recipe to Redux
+        dispatch(setCurrentRecipe(data.recipe));
       } catch (error) {
         console.error('Failed to fetch recipe:', error);
       } finally {
-        dispatch(setLoading(false));  // Dispatch loading state to false once done
+        dispatch(setLoading(false));
       }
     };
 
@@ -38,6 +38,7 @@ export const RecipeDetail: React.FC = () => {
       <RecipeSearch />
       <div className="recipe-detail">
         <h1 className="text-2xl font-bold mb-4">{recipe.title}</h1>
+
         <div className="meta mb-4">
           <p>By {recipe.author}</p>
           <p>Prep time: {recipe.prep_time} minutes</p>
@@ -60,6 +61,7 @@ export const RecipeDetail: React.FC = () => {
             <p>{recipe.instructions}</p>
           </div>
         )}
+        {recipe.image_url && <img src={recipe.image_url} alt={recipe.title} width="100%"  />}
       </div>
     </div>
   );

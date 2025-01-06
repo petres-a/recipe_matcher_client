@@ -46,11 +46,14 @@ export const RecipeList: React.FC = () => {
 
   return (
     <div>
-      <div className="recipe-grid">
+      <div className="recipe-search">
         <RecipeSearch />
+      </div>
+      <div className="recipe-grid">
         {recipes.map((recipe) => (
           <Link to={`/recipes/${recipe.id}`} key={recipe.id} className="recipe-card">
-            <div key={recipe.id} className="recipe-card">
+            <div key={recipe.id}>
+              {recipe.image_url && <img src={recipe.image_url} alt={recipe.title} width="100%" height="200" />}
               <h3>{recipe.title}</h3>
               <div className="recipe-info">
                 <p>Prep Time: {recipe.prep_time} mins</p>
@@ -77,7 +80,7 @@ export const RecipeList: React.FC = () => {
           <span className="px-4 py-2">
             Page {pagination.current_page} of {pagination.total_pages}
           </span>
-          <button 
+          <button
             onClick={() => handlePageChange(pagination.next_page || pagination.total_pages)}
             disabled={!pagination.next_page}
             className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"

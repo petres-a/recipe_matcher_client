@@ -28,7 +28,9 @@ export const Navigation: React.FC = () => {
       {user ? (
         <>
           <Link to="/recipes">Recipes</Link>
-          <button onClick={handleLogout}>Logout</button>
+          <Link to="#" onClick={handleLogout} className="logout-link">
+            Logout
+          </Link>
           <span>Welcome, {user.username}!</span>
         </>
       ) : (

@@ -18,7 +18,7 @@ export const RecipeSearch: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="mb-6">
+    <form onSubmit={handleSearch} className="recipe-search">
       <input
         type="text"
         value={ingredients}
