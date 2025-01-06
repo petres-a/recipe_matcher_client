@@ -5,12 +5,18 @@ WORKDIR /app
 RUN yarn -v || npm install -g yarn
 
 COPY recipe_matcher_client/package.json recipe_matcher_client/yarn.lock ./
+
 RUN yarn install --frozen-lockfile
 
 COPY recipe_matcher_client/ ./
 
-RUN chown -R node:node /app
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+
+RUN yarn build
+
+RUN yarn global add serve
 
 USER node
 
-CMD ["yarn", "start", "--host", "0.0.0.0"]
+CMD ["serve", "-s", "build"]
