@@ -9,12 +9,8 @@ RUN yarn install --frozen-lockfile
 
 COPY recipe_matcher_client/ ./
 
-ENV PORT=3001
-
 RUN chown -R node:node /app
 
 USER node
 
-EXPOSE 3001
-
-CMD ["yarn", "start"]
+CMD ["yarn", "start", "--host", "0.0.0.0"]
