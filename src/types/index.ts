@@ -4,17 +4,6 @@ export interface User {
   username: string;
 }
 
-export interface AuthResponse {
-  status: {
-    code: number;
-    message: string;
-    data: {
-      user: User;
-      token: string;
-    };
-  };
-}
-
 export interface Ingredient {
   name: string;
   quantity: string;

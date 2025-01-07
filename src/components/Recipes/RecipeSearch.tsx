@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../store';
 import { setIngredients } from '../../store/matchedRecipeListSlice';
 
 export const RecipeSearch: React.FC = () => {
   const [localIngredients, setLocalIngredients] = useState('');
   const { token, user } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -16,6 +18,10 @@ export const RecipeSearch: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(setIngredients(localIngredients));
+    
+    if (localIngredients.trim()) {
+      navigate('/recipes');
+    }
   };
 
   if (!token || !user) return null;
