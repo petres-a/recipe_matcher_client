@@ -4,7 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { RootState } from '../../store';
 import { logout as logoutAPI } from '../../services/api';
 import { logout as logoutAction } from '../../store/authSlice';
-import { clearRecipes } from '../../store/recipeSlice';
+import { clearRecipes } from '../../store/recipeListSlice';
+import { clearMatches } from '../../store/matchedRecipeListSlice';
+import { clearCurrentRecipe } from '../../store/recipeDetailSlice';
 
 export const Navigation: React.FC = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,8 @@ export const Navigation: React.FC = () => {
     } finally {
       dispatch(logoutAction());
       dispatch(clearRecipes());
+      dispatch(clearMatches());
+      dispatch(clearCurrentRecipe());
       navigate('/login');
     }
   };
@@ -31,7 +35,7 @@ export const Navigation: React.FC = () => {
           <Link to="#" onClick={handleLogout} className="logout-link">
             Logout
           </Link>
-          <span>Welcome, {user.username}!</span>
+          <span>Welcome{user.username ? `, ${user.username}` : ''}!</span>
         </>
       ) : (
         <>

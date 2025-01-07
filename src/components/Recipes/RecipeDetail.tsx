@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentRecipe, setLoading } from '../../store/recipeSlice';
+import { setCurrentRecipe, setLoading } from '../../store/recipeDetailSlice';
 import { RootState } from '../../store';
 import { getRecipe } from '../../services/api';
-import { RecipeSearch } from './RecipeSearch';
 
 export const RecipeDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch();
-  const recipe = useSelector((state: RootState) => state.recipes.currentRecipe);
-  const loading = useSelector((state: RootState) => state.recipes.loading);
+  const recipe = useSelector((state: RootState) => state.recipe.currentRecipe);
+  const loading = useSelector((state: RootState) => state.recipe.loading);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -35,7 +34,6 @@ export const RecipeDetail: React.FC = () => {
 
   return (
     <div>
-      <RecipeSearch />
       <div className="recipe-detail">
         <h1 className="text-2xl font-bold mb-4">{recipe.title}</h1>
 

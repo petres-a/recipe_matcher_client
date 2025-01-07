@@ -59,6 +59,6 @@ export const getRecipe = async (id: string) => {
   return (await api.get(`/api/v1/recipes/${id}`)).data;
 };
 
-export const matchRecipes = async (ingredients: string) => {
-  return (await api.post('/api/v1/recipes/matcher', { ingredients })).data;
+export const matchRecipes = async (ingredients: string, page = 1, perPage = 10) => {
+  return (await api.post('/api/v1/recipes/matcher', { ingredients, page, per_page: perPage })).data;
 };

@@ -177,6 +177,26 @@ body {
   border-radius: 4px;
 }
 
+.recipe-card .placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: #f3f4f6;
+  border-radius: 4px;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  color: #999;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
 .recipe-card:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
@@ -195,6 +215,7 @@ body {
 
 /* Recipe Search Form */
 .recipe-search {
+  margin: 50px auto;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -241,6 +262,7 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 30px;
+  margin-bottom: 50px;
   gap: 16px;
 }
 

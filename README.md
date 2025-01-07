@@ -1,46 +1,120 @@
-# Getting Started with Create React App
+# Recipe Matcher
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the client-side application for the Recipe Matcher project. It is built using React and Redux Toolkit, providing a seamless user experience for searching and exploring recipes. This repository corresponds to the [Recipe Matcher Client](https://github.com/petres-a/recipe_matcher_client/).
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+1. [Features](#features)
+2. [Getting Started](#getting-started)
+   - [Prerequisites](#prerequisites)
+   - [Installation](#installation)
+3. [Running the Application](#running-the-application)
+4. [Building for Production](#building-for-production)
+5. [Testing](#testing)
+6. [Folder Structure](#folder-structure)
+7. [Environment Variables](#environment-variables)
+8. [Technologies Used](#technologies-used)
+9. [List of Improvement Directions](#list-of-improvement-directions)
 
-### `yarn start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- User authentication with login and signup functionality.
+- Recipe search and filtering based on user-provided ingredients.
+- Pagination support for recipe lists.
+- Recipe detail view with comprehensive information.
+- Responsive design and user-friendly interface.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `yarn test`
+Follow the steps below to get the project up and running locally.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `yarn build`
+Ensure you have the following installed:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [Yarn](https://yarnpkg.com/) (v1.22 or higher)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
 
-### `yarn eject`
+   ```bash
+   git clone https://github.com/petres-a/recipe_matcher_client.git
+   cd recipe_matcher_client
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Install dependencies:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   yarn install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Running the Application
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Start the development server:
 
-## Learn More
+```bash
+yarn start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The app will be available at [http://localhost:3000](http://localhost:3000).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Building for Production
+
+To build the application for production, run:
+
+```bash
+yarn build
+```
+
+The production-ready files will be located in the `build` directory.
+
+## Testing
+
+Run tests using the following command:
+
+```bash
+yarn test
+```
+
+## Folder Structure
+
+- `src/components` - Contains React components, organized by feature.
+- `src/store` - Redux store configuration and slices.
+- `src/services` - API interaction logic.
+- `src/types` - TypeScript type definitions.
+
+## Environment Variables
+
+Create a `.env` file in the root directory and configure the following variables:
+
+```env
+REACT_APP_API_URL=your_api_base_url
+```
+
+Replace `your_api_base_url` with the URL of your backend API.
+
+## Technologies Used
+
+- [React](https://reactjs.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [React Router](https://reactrouter.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Axios](https://axios-http.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+
+## List of Improvement Directions
+
+- Add Cypress tests.
+- Improve token logic.
+- Add ability to comment on recipes.
+- Add ability to add recipes to favorites.
+- Enhance accessibility for screen readers.
+- Implement dark mode.
+- Optimize API request caching.
+- Add internationalization (i18n) support for multiple languages.
+
+---
+
+For any issues or questions, feel free to open an issue in the [repository](https://github.com/petres-a/recipe_matcher_client/issues).

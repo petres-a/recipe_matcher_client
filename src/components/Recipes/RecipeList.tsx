@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { RootState } from '../../store';
 import { getRecipes } from '../../services/api';
-import { setRecipes, setLoading, setError, setPagination } from '../../store/recipeSlice';
-import { RecipeSearch } from './RecipeSearch';
-import { MatchedRecipeList } from './MatchedRecipeList';
+import { setRecipes, setLoading, setError, setPagination } from '../../store/recipeListSlice';
 
 export const RecipeList: React.FC = () => {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { recipes, matches, loading, error, pagination } = useSelector(
+  const { recipes, loading, error, pagination } = useSelector(
     (state: RootState) => state.recipes
   );
   const { token, user } = useSelector((state: RootState) => state.auth);
@@ -37,22 +35,14 @@ export const RecipeList: React.FC = () => {
       }
     };
 
-    if (!matches?.length) {
-      fetchRecipes();
-    }
-  }, [dispatch, navigate, token, user, page, matches]);
+    fetchRecipes();
+  }, [dispatch, navigate, token, user, page]);
 
   if (loading) return <div className="text-center mt-4">Loading...</div>;
   if (error) return <div className="text-center mt-4 text-red-500">{error}</div>;
 
   return (
     <div className="container mx-auto px-4">
-      <div className="mb-8">
-        <RecipeSearch />
-      </div>
-
-      {matches?.length > 0 && <MatchedRecipeList />}
-
       <section>
         <h2 className="text-2xl font-bold mb-4">All Recipes</h2>
         <div className="recipe-grid">
