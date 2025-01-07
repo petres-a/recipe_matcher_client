@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { matchRecipes } from '../../services/api';
-import { setMatches, setLoading, setError } from '../../store/recipeSlice';
+import { setMatches, setLoading, setError, setIngredients } from '../../store/recipeSlice';
+import { RootState } from '../../store';
 
 export const RecipeSearch: React.FC = () => {
-  const [ingredients, setIngredients] = useState('');
+  const ingredients = useSelector((state: RootState) => state.recipes.ingredients);
   const dispatch = useDispatch();
 
   const handleSearch = async (e: React.FormEvent) => {
@@ -12,7 +13,7 @@ export const RecipeSearch: React.FC = () => {
     try {
       dispatch(setLoading(true));
       const response = await matchRecipes(ingredients);
-    dispatch(setMatches(response.matched_recipes));
+      dispatch(setMatches(response.matched_recipes));
       dispatch(setError(null));
     } catch (error) {
       dispatch(setError('Failed to match recipes'));
@@ -26,7 +27,7 @@ export const RecipeSearch: React.FC = () => {
       <input
         type="text"
         value={ingredients}
-        onChange={(e) => setIngredients(e.target.value)}
+        onChange={(e) => dispatch(setIngredients(e.target.value))}
         placeholder="Enter ingredients (e.g., 2 eggs, 1 cup flour)"
         className="w-full p-2 border rounded"
       />

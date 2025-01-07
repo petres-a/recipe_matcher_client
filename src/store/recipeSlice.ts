@@ -8,6 +8,7 @@ interface RecipeState {
   loading: boolean;
   error: string | null;
   pagination: PaginationMeta | null;
+  ingredients: string;
 }
 
 const initialState: RecipeState = {
@@ -16,7 +17,8 @@ const initialState: RecipeState = {
   matches: [],
   loading: false,
   error: null,
-  pagination: null
+  pagination: null,
+  ingredients: ''
 };
 
 const recipeSlice = createSlice({
@@ -34,6 +36,9 @@ const recipeSlice = createSlice({
     },
     setPagination: (state, action: PayloadAction<PaginationMeta>) => {
       state.pagination = action.payload;
+    },
+    setIngredients(state, action: PayloadAction<string>) {
+      state.ingredients = action.payload;
     },
     clearRecipes: (state) => {
       state.recipes = [];
@@ -57,6 +62,7 @@ export const {
   setPagination,
   clearRecipes,
   setLoading,
+  setIngredients,
   setError
 } = recipeSlice.actions;
 export default recipeSlice.reducer;

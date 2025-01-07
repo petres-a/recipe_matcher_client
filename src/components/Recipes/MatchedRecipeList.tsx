@@ -11,24 +11,26 @@ export const MatchedRecipeList: React.FC = () => {
   if (!matches?.length) return <div className="text-center mt-4">No matching recipes found</div>;
 
   return (
-    <div className="mt-8">
+    <section className="mb-12">
       <h2 className="text-2xl font-bold mb-4">Matching Recipes</h2>
       <div className="recipe-grid">
         {matches.map(({ recipe, score, missing_ingredients }) => (
           <Link to={`/recipes/${recipe.id}`} key={recipe.id} className="recipe-card">
-            <div>
+            <div className="recipe-card-content">
               {recipe.image_url && (
-                <img src={recipe.image_url} alt={recipe.title} className="w-full h-48 object-cover rounded" />
+                <img src={recipe.image_url} alt={recipe.title} />
               )}
-              <h3 className="text-xl font-semibold mt-2">{recipe.title}</h3>
-              <div className="mt-2 text-sm text-gray-600">
-                <div>Match Score: {(score * 100).toFixed(0)}%</div>
-                <div>Prep Time: {recipe.prep_time} mins</div>
-                <div>Cook Time: {recipe.cook_time} mins</div>
-                <div>Rating: {recipe.ratings}</div>
+              <div className="recipe-card-info">
+                <h3 className="text-xl font-semibold">{recipe.title}</h3>
+                <div className="text-sm text-gray-600">
+                  <div>Match Score: {(score * 100).toFixed(0)}%</div>
+                  <div>Prep Time: {recipe.prep_time} mins</div>
+                  <div>Cook Time: {recipe.cook_time} mins</div>
+                  <div>Rating: {recipe.ratings}</div>
+                </div>
               </div>
               {missing_ingredients.length > 0 && (
-                <div className="mt-2 text-sm text-red-600">
+                <div className="recipe-card-missing text-sm text-red-600">
                   Missing: {missing_ingredients.join(', ')}
                 </div>
               )}
@@ -36,6 +38,6 @@ export const MatchedRecipeList: React.FC = () => {
           </Link>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
