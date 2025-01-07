@@ -16,7 +16,7 @@ export const SignUpForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(setError(null));
-    
+
     try {
       const response = await signUp(email, password, username);
       const user = {
